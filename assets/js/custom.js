@@ -3,6 +3,27 @@ window.addEventListener("load", (function() {
     var en = document.getElementsByClassName("en");
     var koreanSwitch = document.getElementById("koreanSwitch");
 
+    var time_span = document.getElementById("current-local-time");
+    function localTime() {
+        // 1. 현재 시간(Locale)
+        const curr = new Date();
+
+        // 2. UTC 시간 계산
+        const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+
+        // 3. UTC to KST (UTC + 9시간)
+        const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+        const kr_curr = new Date(utc + (KR_TIME_DIFF));
+        var diff = 9 + curr.getTimezoneOffset() / 60;
+        var local_time_str = kr_curr.toLocaleTimeString(koreanSwitch.checked? 'ko-KR':'en-US', {hour: '2-digit', minute:'2-digit'});
+        var time_diff_str = (koreanSwitch.checked ? ' (시차: ':' (Time difference: ') + diff + ')'
+
+        time_span.innerHTML = local_time_str + time_diff_str;
+    }
+    localTime();
+    setInterval(localTime, 1000);
+
+
     if (koreanSwitch) {
         initLang();
         koreanSwitch.addEventListener("change", (function() {
@@ -17,6 +38,7 @@ window.addEventListener("load", (function() {
     }
 
     function resetLang() {
+        localTime();
         if (koreanSwitch.checked) {
             document.querySelector("html").setAttribute('lang', 'ko');
             document.querySelector("title").text = "박정섭";

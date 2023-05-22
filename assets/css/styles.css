@@ -827,3 +827,7 @@ body[data-theme="dark"] .text-muted {
     max-width: inherit;
   }
 }
+
+.list-contribution-item{
+  word-break: break-all;
+}

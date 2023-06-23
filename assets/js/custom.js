@@ -68,7 +68,7 @@ window.addEventListener("load", (function() {
                     promotion_date_span_ko.innerHTML = promotions[i].toLocaleDateString('ko-KR', {year: 'numeric', month: 'long', day: 'numeric',});
                     promotion_date_span_en.innerHTML = promotions[i].toLocaleDateString('en-US', {year: 'numeric', month: 'long', day: 'numeric',});
                 } else {
-                    promotion_div.style.display = 'none';
+                    //promotion_div.style.display = 'none';
                 }
 
                 break;

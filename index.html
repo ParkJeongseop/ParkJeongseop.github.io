@@ -18,6 +18,12 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:locale:alternate" content="ko_KR" />
     <link rel="shortcut icon" href="assets/images/anchor.png">
+
+    <style>
+        .ko {
+            display: none;
+        }
+    </style>
     
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'> 
@@ -156,6 +162,7 @@
                                     <span class="badge badge-theme">HTML5</span>
                                     <span class="badge badge-theme">CSS</span>
                                     <span class="badge badge-theme">JavaScript</span>
+                                    <span class="badge badge-theme">jQuery</span>
                                     <span class="badge badge-theme">eGovFramework</span>
                                     <span class="badge badge-theme">SVN(Apache Subversion)</span>
                                     <span class="badge badge-theme">Unix</span>
@@ -748,8 +755,8 @@
 
                                     <div>
                                         ⚓ 
-                                        <span class="ko">입대: D+</span>
-                                        <span class="en">Enlist: D+</span>
+                                        <span class="ko">입대: D</span>
+                                        <span class="en">Enlist: D</span>
                                         <span id="enlist"></span>
                                         (
                                         <span id="enlist-date-ko" class="ko">(2022. 03. 28.)</span>
@@ -766,7 +773,7 @@
                                         <span id="discharge-date-en" class="en">(2023. 11. 27.)</span>
                                         )
                                     </div>
-                                    <div>
+                                    <div id="promotion-div">
                                         🆙 
                                         <span id="next-rank-ko" class="ko"></span>
                                         <span id="next-rank-en" class="en"></span>

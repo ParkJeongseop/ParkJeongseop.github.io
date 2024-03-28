@@ -94,8 +94,8 @@ window.addEventListener("load", (function() {
     }
     localTime();
     setInterval(localTime, 1000);
-    militaryService();
-    setInterval(militaryService, 100);
+    // militaryService();
+    // setInterval(militaryService, 100);
 
 
     

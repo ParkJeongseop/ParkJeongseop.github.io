@@ -107,7 +107,15 @@ window.addEventListener("load", (function() {
     }
 
     function initLang() {
-        var koreanSelected = localStorage.getItem("koreanSwitch") !== null && localStorage.getItem("koreanSwitch") === "korean";
+        // 기존에 선택한 언어가 있으면 선택된 언어로 초기화, 없으면 브라우저 언어로 초기화
+        var userLanguage = navigator.language || navigator.userLanguage;
+        
+        if (localStorage.getItem("koreanSwitch") !== null) {
+            var koreanSelected = localStorage.getItem("koreanSwitch") === "korean";
+        } else {
+            var koreanSelected = userLanguage.startsWith("ko");
+        }
+        
         koreanSwitch.checked = koreanSelected;
         resetLang()
     }

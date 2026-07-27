@@ -1,0 +1,241 @@
+/* 블로그 전용 보강 스타일. 기존 styles.css(이력서) + site-nav.css 와 함께 사용됩니다. */
+
+/* ---------- 블로그 제목 + RSS ---------- */
+.blog-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.rss-link {
+  color: #f26522;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.rss-link:hover {
+  opacity: 0.7;
+}
+
+/* ---------- 글 목록 ---------- */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.post-list-item {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid #e8e8e8;
+}
+.post-list-item:last-child {
+  border-bottom: none;
+}
+.post-list-item .post-title {
+  font-size: 1.35rem;
+  margin: 0 0 0.35rem;
+}
+.post-list-item .post-title a {
+  color: #434343;
+  text-decoration: none;
+}
+.post-list-item .post-title a:hover {
+  color: #3aaa64;
+}
+.post-meta {
+  color: #999;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+.post-excerpt {
+  color: #666;
+  margin: 0;
+}
+
+/* ---------- 태그 ---------- */
+.post-tags {
+  margin-top: 0.5rem;
+}
+.post-tags .badge {
+  background: #eaf6ee;
+  color: #2e8c52;
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+/* ---------- 글 본문 ---------- */
+.post-article .post-header {
+  margin-bottom: 1.5rem;
+}
+.post-article h1.post-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+.post-content {
+  color: #434343;
+  line-height: 1.8;
+  font-size: 1.02rem;
+}
+.post-content h2 {
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.5rem;
+}
+.post-content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.post-content p {
+  margin-bottom: 1.1rem;
+}
+.post-content img {
+  max-width: min(100%, 560px);
+  max-height: 500px;
+  width: auto;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* 이미지 캡션: ![...]() 바로 다음 줄의 *캡션* */
+.post-content p > img + em {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.88rem;
+  color: #8a949e;
+  font-style: normal;
+  text-align: center;
+}
+/* 작게 표시할 이미지 (스크린샷·메시지 캡처 등): <div class="img-small"> 로 감싸기 */
+.post-content .img-small img {
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* 이미지 2열 배치 (2장 = 나란히, 4장 = 2×2): <div class="img-grid"> 로 감싸기 */
+.post-content .img-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  align-items: start;
+  margin-bottom: 1.1rem;
+}
+.post-content .img-grid p {
+  margin-bottom: 0;
+}
+.post-content .img-grid img {
+  width: 100%;
+  max-width: 100%;
+  max-height: none;
+}
+/* Giscus 댓글 */
+.giscus-wrap {
+  margin: 1.5rem 0;
+}
+
+/* 네이버 블로그 댓글 안내 박스 */
+.naver-comment-box {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 2rem 0 1rem;
+  padding: 0.9rem 1.1rem;
+  border: 1px solid #e0e6ea;
+  border-radius: 8px;
+  background: #f8faf9;
+  font-size: 0.95rem;
+  color: #434343;
+}
+.naver-comment-box .naver-comment-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  fill: #03c75a;
+}
+.naver-comment-box a {
+  font-weight: 600;
+  color: #3aaa64;
+}
+body[data-theme='dark'] .naver-comment-box {
+  background: #24282c;
+  border-color: #2c2f34;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 그리드 바로 뒤에 오는 *캡션* 문단도 캡션 스타일로 */
+.post-content .img-grid + p > em:only-child {
+  display: block;
+  margin-top: -0.5rem;
+  font-size: 0.88rem;
+  color: #8a949e;
+  font-style: normal;
+  text-align: center;
+}
+@media (max-width: 576px) {
+  .post-content .img-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.post-content pre {
+  background: #1e2127;
+  color: #e6e6e6;
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.9rem;
+}
+.post-content code {
+  background: #f0f0f0;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.post-content pre code {
+  background: transparent;
+  padding: 0;
+}
+.post-content blockquote {
+  border-left: 4px solid #3aaa64;
+  margin: 1.25rem 0;
+  padding: 0.5rem 1rem;
+  color: #666;
+  background: #f9f9f9;
+}
+.post-content a {
+  color: #3aaa64;
+}
+.back-link {
+  display: inline-block;
+  margin-top: 2rem;
+  color: #666;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  color: #3aaa64;
+}
+
+/* ---------- 다크모드 ---------- */
+body[data-theme='dark'] .post-list-item {
+  border-bottom-color: #2c2f34;
+}
+body[data-theme='dark'] .post-list-item .post-title a,
+body[data-theme='dark'] .post-content {
+  color: rgba(255, 255, 255, 0.9);
+}
+body[data-theme='dark'] .post-meta,
+body[data-theme='dark'] .post-excerpt {
+  color: rgba(255, 255, 255, 0.6);
+}
+body[data-theme='dark'] .post-content code {
+  background: #2c2f34;
+  color: #e6e6e6;
+}
+body[data-theme='dark'] .post-content blockquote {
+  background: #23262b;
+  color: rgba(255, 255, 255, 0.7);
+}
+body[data-theme='dark'] .post-tags .badge {
+  background: #20392a;
+  color: #6cd28f;
+}

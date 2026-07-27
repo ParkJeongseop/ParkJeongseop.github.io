@@ -1,0 +1,107 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const dateFmt = new Intl.DateTimeFormat('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description ?? post.data.title}>
+  <article class="section post-article">
+    <div class="section-inner shadow-sm rounded">
+      <header class="post-header">
+        <h1 class="post-title heading">{post.data.title}</h1>
+        <div class="post-meta">
+          <i class="far fa-calendar-alt"></i> {dateFmt.format(post.data.pubDate)}
+          {
+            post.data.updatedDate && (
+              <span> · 수정: {dateFmt.format(post.data.updatedDate)}</span>
+            )
+          }
+        </div>
+        {
+          post.data.tags.length > 0 && (
+            <div class="post-tags">
+              {post.data.tags.map((tag) => (
+                <span class="badge">{tag}</span>
+              ))}
+            </div>
+          )
+        }
+      </header>
+
+      <div class="post-content">
+        <Content />
+      </div>
+
+      {
+        post.data.naverUrl && (
+          <div class="naver-comment-box">
+            <svg class="naver-comment-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z" />
+            </svg>
+            <span>
+              이 글은 네이버 블로그에도 발행되어 있습니다.{' '}
+              <a href={post.data.naverUrl} target="_blank" rel="noopener">
+                네이버에서 댓글 남기기 <i class="fas fa-external-link-alt" />
+              </a>
+            </span>
+          </div>
+        )
+      }
+
+      <div class="giscus-wrap"></div>
+      <script is:inline>
+        (function () {
+          var isDark = document.body.getAttribute('data-theme') === 'dark';
+          var s = document.createElement('script');
+          s.src = 'https://giscus.app/client.js';
+          s.async = true;
+          s.crossOrigin = 'anonymous';
+          var cfg = {
+            'data-repo': 'ParkJeongseop/ParkJeongseop.github.io',
+            'data-repo-id': 'MDEwOlJlcG9zaXRvcnkxNTM2NDYwNzc=',
+            'data-category': 'Comments',
+            'data-category-id': 'DIC_kwDOCShz_c4DCEk0',
+            'data-mapping': 'pathname',
+            'data-strict': '0',
+            'data-reactions-enabled': '1',
+            'data-emit-metadata': '0',
+            'data-input-position': 'bottom',
+            'data-theme': isDark ? 'dark' : 'light',
+            'data-lang': 'ko',
+          };
+          for (var k in cfg) s.setAttribute(k, cfg[k]);
+          document.querySelector('.giscus-wrap').appendChild(s);
+
+          // 사이트 테마 토글 시 giscus 테마도 동기화
+          new MutationObserver(function () {
+            var dark = document.body.getAttribute('data-theme') === 'dark';
+            var iframe = document.querySelector('iframe.giscus-frame');
+            if (iframe)
+              iframe.contentWindow.postMessage(
+                { giscus: { setConfig: { theme: dark ? 'dark' : 'light' } } },
+                'https://giscus.app'
+              );
+          }).observe(document.body, { attributes: true, attributeFilter: ['data-theme'] });
+        })();
+      </script>
+
+      <a class="back-link" href="/blog"><i class="fas fa-arrow-left"></i> 목록으로</a>
+    </div>
+  </article>
+</BaseLayout>

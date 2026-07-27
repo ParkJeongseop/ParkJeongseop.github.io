@@ -23,6 +23,129 @@
         .ko {
             display: none;
         }
+        .hero-sub {
+            margin: 0.35rem 0 0;
+            color: #778492;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        .skill-group {
+            margin-bottom: 1rem;
+        }
+        .skill-group:last-child {
+            margin-bottom: 0;
+        }
+        .skill-group-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #999;
+            font-weight: 700;
+            margin: 0 0 0.4rem;
+        }
+        .latest-posts .post-link {
+            display: block;
+            padding: 0.6rem 0;
+            border-bottom: 1px solid #e8e8e8;
+            text-decoration: none;
+        }
+        .latest-posts .post-link:first-child {
+            padding-top: 0;
+        }
+        .latest-posts .post-link:last-child {
+            border-bottom: none;
+        }
+        .latest-posts .post-link .t {
+            color: #434343;
+            font-weight: 600;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+        .latest-posts .post-link:hover .t {
+            color: #3aaa64;
+        }
+        .latest-posts .post-link .d {
+            color: #999;
+            font-size: 0.82rem;
+            margin-top: 0.15rem;
+        }
+        body[data-theme="dark"] .skill-group-title {
+            color: rgba(255, 255, 255, 0.55);
+        }
+        body[data-theme="dark"] .latest-posts .post-link {
+            border-bottom-color: #2c2f34;
+        }
+        body[data-theme="dark"] .latest-posts .post-link .t {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        /* Soundok 배너 — 풀블리드 정사각형 카드 */
+        .soundok.aside {
+            margin-bottom: 1.875rem;
+        }
+        .soundok-banner {
+            display: block;
+            overflow: hidden;
+            line-height: 0;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .soundok-banner img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+        .soundok-banner:hover {
+            transform: translateY(-2px);
+        }
+        /* GitHub 잔디 (이미지) */
+        .github-chart {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        /* 업무경험 불릿 정렬 — 제목 라인 기준, 행잉 인덴트 */
+        .experience .exp-list {
+            margin: 0.5rem 0 0;
+            padding-left: 1.2rem;
+            list-style: disc;
+        }
+        .experience .exp-list > li {
+            margin-bottom: 0.4rem;
+        }
+        .experience .exp-list ul {
+            margin: 0.3rem 0;
+            padding-left: 1.2rem;
+            list-style: circle;
+        }
+        .experience .exp-list ul li {
+            margin-bottom: 0.2rem;
+        }
+        /* 네이버블로그 소셜 아이콘 (Naver N, 회색 배지 — 다른 아이콘과 동일) */
+        .header .profile-content .social a { vertical-align: middle; }
+        .header .profile-content .social a .naver-icon {
+            width: 16px;
+            height: 16px;
+            margin-top: 10px;
+            fill: #fff;
+        }
+        /* Soundok 소셜 아이콘 (브랜드 로고 원본 사용) */
+        .header .profile-content .social a.soundok {
+            background: none;
+        }
+        .header .profile-content .social a.soundok img {
+            display: block;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+        }
+        /* 프로젝트 더보기 토글 */
+        .more-projects-btn { transition: none !important; }
+        .more-projects-btn .less-label { display: none; }
+        .more-projects-btn.expanded .more-label { display: none; }
+        .more-projects-btn.expanded .less-label { display: inline; }
+        .more-projects-btn .fa-chevron-down { transition: transform 0.2s; }
+        .more-projects-btn.expanded .fa-chevron-down { transform: rotate(180deg); }
+        /* 세로(포트레이트) 프로젝트 썸네일 높이 제한 + 가운데 정렬 */
+        .latest .item .project-image { max-height: 300px; width: auto; display: block; margin-left: auto; margin-right: auto; }
     </style>
     
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
@@ -34,8 +157,10 @@
     <!-- Global CSS -->
     <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">  
     
-    <!-- Theme CSS -->  
+    <!-- Theme CSS -->
     <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- Site nav (이력서/블로그 공통 헤더) -->
+    <link rel="stylesheet" href="assets/css/site-nav.css">
     <script src="assets/js/custom.js"></script>
 
     <!-- Google tag (gtag.js) -->
@@ -60,23 +185,77 @@
 </head> 
 
 <body>
-    <!-- ******HEADER****** --> 
+    <!-- 다크모드 깜빡임 최소화: 저장된 테마 즉시 적용 -->
+    <script>
+        if (localStorage.getItem("darkSwitch") === "dark") {
+            document.body.setAttribute("data-theme", "dark");
+        }
+    </script>
+
+    <!-- ******SITE NAV (이력서/블로그 공통)****** -->
+    <nav class="site-nav">
+        <div class="container site-nav-inner">
+            <a class="site-nav-brand" href="/">
+                <span class="ko">박정섭</span>
+                <span class="en">Jeongseop Park</span>
+            </a>
+            <div class="site-nav-right">
+                <ul class="site-nav-links site-nav-sections">
+                    <li><a href="#experience">
+                        <span class="ko">경력</span>
+                        <span class="en">Experience</span>
+                    </a></li>
+                    <li><a href="#projects">
+                        <span class="ko">프로젝트</span>
+                        <span class="en">Projects</span>
+                    </a></li>
+                    <li><a href="#education">
+                        <span class="ko">교육</span>
+                        <span class="en">Education</span>
+                    </a></li>
+                    <li><a href="#awards">
+                        <span class="ko">수상</span>
+                        <span class="en">Awards</span>
+                    </a></li>
+                    <li class="nav-blog"><a href="/blog">
+                        <span class="ko">블로그</span>
+                        <span class="en">Blog</span>
+                    </a></li>
+                </ul>
+                <div class="nav-utils">
+                    <button type="button" id="langToggle" class="nav-btn" title="Language">
+                        <i class="fas fa-globe"></i> <span class="lang-target">EN</span>
+                    </button>
+                    <button type="button" id="themeToggle" class="nav-btn" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ******HEADER****** -->
     <header class="header">
         <div class="container">     
 	        <div class="row align-items-center">
 			    <div class="col">         
-		            <img class="profile-image img-fluid float-start rounded-circle" src="assets/images/profile.jpg" alt="profile image" width="180" height="180"/>
+		            <img class="profile-image img-fluid float-start rounded" src="assets/images/profile.jpg" alt="profile image" width="180"/>
 		            <div class="profile-content">
 		                <h1 class="name">
                             <span class="ko">박정섭</span>
                             <span class="en">Jeongseop Park</span>
                         </h1>
 		                <h2 class="desc">
-                            <span class="ko">CTO & Co-founder at KOIVIS</span>
-                            <span class="en">CTO & Co-founder at KOIVIS</span>
-                        </h2>   
+                            <span class="ko">아이디어를 빠르게 제품으로 만듭니다.</span>
+                            <span class="en">I turn ideas into products, fast.</span>
+                        </h2>
+                        <p class="hero-sub">
+                            <span class="ko">소프트웨어 엔지니어 · Soundok Founder & CTO</span>
+                            <span class="en">Software engineer · Founder & CTO at Soundok</span>
+                        </p>
 		                <ul class="social list-inline">
 		                    <!-- <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li> -->
+		                    <li class="list-inline-item"><a class="soundok" href="https://soundok.music/lucky_seop" target="_blank" title="Soundok"><img src="assets/images/soundok-icon.png" alt="Soundok" /></a></li>
 		                    <li class="list-inline-item">
                                 <a class="en" href="https://www.linkedin.com/in/parkjeongseop/?locale=en_US" target="_blank"><i class="fab fa-linkedin-in"></i></a>
                                 <a class="ko" href="https://www.linkedin.com/in/parkjeongseop/?locale=ko_KR" target="_blank"><i class="fab fa-linkedin-in"></i></a>
@@ -84,37 +263,13 @@
 		                    <li class="list-inline-item"><a href="https://github.com/ParkJeongseop" target="_blank"><i class="fab fa-github-alt"></i></a></li>
 		                    <li class="list-inline-item"><a href="https://youtube.com/@parkjeongseop" target="_blank"><i class="fab fa-youtube"></i></a></li>
 		                    <li class="list-inline-item"><a href="https://instagram.com/lucky_seop" target="_blank"><i class="fab fa-instagram"></i></a></li>
+		                    <li class="list-inline-item"><a class="naver-blog" href="https://blog.naver.com/lucky_seop" target="_blank" title="Naver Blog"><svg class="naver-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M16.273 12.845 7.376 0H0v24h7.726V11.156L16.624 24H24V0h-7.727v12.845Z"/></svg></a></li>
+		                    <li class="list-inline-item"><a href="/blog" title="Blog"><i class="fas fa-pen-nib"></i></a></li>
 		                    <!-- <li class="list-inline-item"><a href="#"><i class="fab fa-stack-overflow"></i></a></li>    -->
 		                    <!-- <li class="list-inline-item last-item"><a href="#"><i class="fab fa-codepen"></i></a></li>                 -->
 		                </ul> 
 		            </div><!--//profile-->
 			    </div><!--//col-->
-	            <div class="col-12 col-md-auto">
-                    <div class="korean-mode-switch d-flex">
-						<div class="form-check form-switch mx-auto mx-md-0">
-							<input type="checkbox" class="form-check-input me-2" id="koreanSwitch" />
-							<label class="custom-control-label" for="koreanSwitch">
-                                <span class=ko>Korean</span>
-                                <span class=en>한국어</span>
-                            </label>
-						</div>
-			        </div><!--//lang-switch-->
-		            <div class="dark-mode-switch d-flex">
-						<div class="form-check form-switch mx-auto mx-md-0">
-							<input type="checkbox" class="form-check-input me-2" id="darkSwitch" />
-							<label class="custom-control-label" for="darkSwitch">
-                                <span class=ko>다크모드</span>
-                                <span class=en>Dark Mode</span>
-                            </label>
-						</div>
-			        </div><!--//dark-mode-switch-->
-		            <!-- <div class="views">
-						views: 1/199
-                        구현 필요!!
-			        </div>//dark-mode-switch
-	                <a class="btn btn-cta-primary" href="#" target="_blank"><i class="fas fa-paper-plane"></i> Contact Me</span>
-                    </a> -->
-	            </div><!--//col-->
 	        </div><!--//row-->         
         </div><!--//container-->
     </header><!--//header-->
@@ -122,32 +277,8 @@
     <div class="container sections-wrapper py-5">
         <div class="row">
             <div class="primary col-lg-8 col-12">
-                <section class="about section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">
-                            <span class=ko>자기소개</span>
-                            <span class=en>About Me</span>
-                        </h2>
-                        <div class="content">
-                            <div class="ko">
-                                <p>지시를 받아서 할당된 일만을 수행하는 것이 아닌 주도적으로 일을 스스로 찾고, 일을 만들어내어 제안하고 수행합니다.</p>
-                                <p>평소에도 불편하다거나 필요한 것이 있다고 생각하면 바로 개발하여 사용하곤 했습니다. 회사에서 파트타임으로 일하면서도 주어진 업무 이외에 사업에 도움이 될만한 것이 있을 때 직접 제안하고 일을 맡아서 성공적으로 수행하였습니다.</p>
-                                    
-                                <p>개발을 할 때에 필요한 기술이 있다면 빠르게 학습을 하고 기술들을 접목하여 개발해 보는 것을 좋아합니다.</p>
-                                <p>"전자청원"이라는 애플리케이션을 개발하면서 DBMS나 소켓프로그래밍을 처음 배워보았고, "본인인증 자동완성"프로젝트를 하면서 처음 브라우저 확장프로그램을 배워 만 24시간에 개발하였습니다.</p>
-                            </div>
-                            <div class="en">
-                                <p>I don't just do the assigned work after being instructed, I proactively search for work myself, create, propose, and carry out work.</p>
-                                <p>I used to develop and use it as soon as I thought it was inconvenient or necessary. While working part-time at the company, when there was something that would be helpful to the business other than the assigned job, I personally suggested it and took on the job, and successfully carried it out.</p>
-                                    
-                                <p>If I have the necessary skills for development, I like to learn quickly and develop them by combining them.</p>
-                                <p>I learned DBMS or socket programming for the first time while developing an application "Cheongwon Pay", and learned a browser extension program for the first time while working on the "Auth AutoFill" project and developed it in 24 hours.</p>
-                            </div>
-                        </div><!--//content-->
-                    </div><!--//section-inner-->                 
-                </section><!--//section-->
     
-                <section class="experience section">
+                <section class="experience section" id="experience">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading">
                             <span class=ko>업무 경험</span>
@@ -155,16 +286,52 @@
                         </h2>
                         <div class="content">
                             <div class="item ko">
-                                <h3 class="title">최고 기술 책임자 및 공동창업자 - <span class="place"><a href="http://www.koivis.com" target="_blank">KOIVIS</a></span> <span class="year">(2024-02 ~ 재직 중)</span></h3>
-                                <li>Soundok 서비스 아이디어 제안 및 개발 주도: 음원 스트리밍 서비스들의 음원 메타데이터를 활용한 플레이리스트 공유 플랫폼 개발.</li>
-                                <li>기술 아키텍처 설계: 백엔드 시스템 및 API 설계 담당, 다양한 음원 스트리밍 플랫폼과의 통합 작업.</li>
-                                <li>팀 리더십: 기술 전략 수립 및 팀을 이끌며 서비스 확장성과 안정성 확보.</li>
+                                <h3 class="title">창업자 겸 CTO - <span class="place"><a href="https://about.soundok.music/" target="_blank">Soundok</a></span> <span class="year">(2024-02 ~ 재직 중)</span></h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">MariaDB</span>
+                                    <span class="badge badge-theme">FastAPI</span>
+                                    <span class="badge badge-theme">AWS</span>
+                                    <span class="badge badge-theme">Python</span>
+                                    <span class="badge badge-theme">React</span>
+                                    <span class="badge badge-theme">React Native</span>
+                                    <span class="badge badge-theme">iOS App</span>
+                                    <span class="badge badge-theme">Android App</span>
+                                    <span class="badge badge-theme">Redis</span>
+                                    <span class="badge badge-theme">Qdrant</span>
+                                </div>
+                                <ul class="exp-list">
+                                    <li>플레이리스트 마이그레이션·음악 SNS·공연 정보/셋리스트·음악 리워드·아티스트 스마트링크를 아우르는 종합 음악 플랫폼의 기술 전반 총괄.</li>
+                                    <li>백엔드·웹·iOS/Android 앱·인프라 전 영역 직접 설계·구현 — 웹 기반 하이브리드 구조로 네이티브가 필요한 기능만 브리지로 호출·중계.</li>
+                                    <li>크로스플랫폼 동일곡 매칭 엔진(Record Linkage) 직접 개발 — 서비스마다 다른 곡 ID·메타데이터를 동일 곡으로 매핑해 국내외 8개 음원 서비스를 연동, 플레이리스트 마이그레이션·아티스트 스마트링크 등 핵심 기능의 기반.</li>
+                                    <li>맥락 기반 네이티브 음원 광고 개발 — 플레이리스트의 분위기·장르에 맞춰 광고 음원을 자연스럽게 삽입.</li>
+                                    <li>iOS·Android·웹·토스 미니앱(앱인토스) 등 4개 채널 출시·운영.</li>
+                                    <li>프라이머(Primer) 29기 선정, 시드 투자 유치 (2026-07).</li>
+                                    <li>성과: MAU 3만+, 누적 게시물 5,000+, 협업 아티스트 300+, 음악 인플루언서 100+.</li>
+                                </ul>
                             </div><!--//item-->
                             <div class="item en">
-                                <h3 class="title">Chief Technology Officer & Co-founder - <span class="place"><a href="http://www.koivis.com" target="_blank">KOIVIS</a></span> <span class="year">(Feb 2024 - Present)</span></h3>
-                                <li>Conceptualized and led the development of Soundok service: Developed a playlist sharing platform using music metadata from various music streaming services.</li>
-                                <li>Technical Architecture Design: Responsible for backend system and API design, integrating with multiple music streaming platforms.</li>
-                                <li>Team Leadership: Defined technical strategy and led the team to ensure service scalability and stability.</li>
+                                <h3 class="title">Founder & CTO - <span class="place"><a href="https://about.soundok.music/" target="_blank">Soundok</a></span> <span class="year">(Feb 2024 - Present)</span></h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">MariaDB</span>
+                                    <span class="badge badge-theme">FastAPI</span>
+                                    <span class="badge badge-theme">AWS</span>
+                                    <span class="badge badge-theme">Python</span>
+                                    <span class="badge badge-theme">React</span>
+                                    <span class="badge badge-theme">React Native</span>
+                                    <span class="badge badge-theme">iOS App</span>
+                                    <span class="badge badge-theme">Android App</span>
+                                    <span class="badge badge-theme">Redis</span>
+                                    <span class="badge badge-theme">Qdrant</span>
+                                </div>
+                                <ul class="exp-list">
+                                    <li>Lead all engineering for Soundok, a comprehensive music platform — playlist migration, a social music feed, concert info/setlists, music rewards, and artist smart links.</li>
+                                    <li>Designed and built the full stack (backend, web, iOS/Android apps, infra) on a web-based hybrid architecture that bridges to native only where required.</li>
+                                    <li>Built a cross-platform same-song matching (record linkage) engine that resolves identical tracks across differing per-service IDs and links 8 domestic & global services — the core powering playlist migration and artist smart links.</li>
+                                    <li>Developed context-aware native audio advertising that inserts ad tracks matched to the mood and genre of each playlist.</li>
+                                    <li>Launched and operate across 4 channels: iOS, Android, web, and Toss (mini app).</li>
+                                    <li>Raised seed funding from Primer (Batch 29, Jul 2026).</li>
+                                    <li>Traction: 30,000+ MAU, 5,000+ posts, 300+ partnered artists, 100+ music influencers.</li>
+                                </ul>
                             </div><!--//item-->
 
                             <hr class="divider" />
@@ -179,7 +346,7 @@
                                     <span class="badge badge-theme">Cloud Computing</span>
                                     <span class="badge badge-theme">Git</span>
                                 </div>
-                                <li>BASyMCo 웹서비스의 백엔드 설계 및 구현, 미생물 균주 데이터 관리 및 시각화 담당.
+                                <ul class="exp-list"><li>BASyMCo 웹서비스의 백엔드 설계 및 구현, 미생물 균주 데이터 관리 및 시각화 담당.
                                     <ul>
                                         <li>FastAPI를 활용한 API 서버 구현 및 성능 최적화 (응답 속도 90% 향상).</li>
                                         <li>기존 Python Dash의 속도 문제를 DB 인덱스 최적화 및 백엔드 분리로 개선.</li>
@@ -190,7 +357,7 @@
                                         <li>Python GUI와 FastAPI 서버로 엑셀 수기 관리 시스템을 자동화.</li>
                                         <li>바코드 시스템 도입으로 재고 조회 시간이 80% 단축 및 사용 기록 관리 투명화.</li>
                                     </ul>
-                                </li>
+                                </li></ul>
                             </div><!--//item-->
                             <div class="item en">
                                 <h3 class="title">Software Developer - <span class="place"><a href="http://biomatz.com" target="_blank">BIOMATZ</a></span> <span class="year">(Dec 2023 - May 2024)</span></h3>
@@ -202,7 +369,7 @@
                                     <span class="badge badge-theme">Cloud Computing</span>
                                     <span class="badge badge-theme">Git</span>
                                 </div>
-                                <li>Backend design and implementation of BASyMCo web service, responsible for managing and visualizing microbial strain data.
+                                <ul class="exp-list"><li>Backend design and implementation of BASyMCo web service, responsible for managing and visualizing microbial strain data.
                                     <ul>
                                         <li>Implemented API server using FastAPI and optimized performance (90% improvement in response time).</li>
                                         <li>Improved speed issues of the existing Python Dash by optimizing database indexes and separating the backend.</li>
@@ -213,7 +380,7 @@
                                         <li>Automated manual Excel-based management system using Python GUI and FastAPI server.</li>
                                         <li>Introduced barcode system, reducing inventory lookup time by 80% and improving transparency in usage record management.</li>
                                     </ul>
-                                </li>
+                                </li></ul>
                             </div><!--//item-->
 
                             <hr class="divider" />
@@ -234,9 +401,9 @@
                                     <span class="badge badge-theme">iBATIS</span>
                                     <span class="badge badge-theme">MyBatis</span>
                                 </div>
-                                <li>군사 보안 환경에서 해군/해병대 웹서비스 신규 개발 및 유지보수 담당.</li>
+                                <ul class="exp-list"><li>군사 보안 환경에서 해군/해병대 웹서비스 신규 개발 및 유지보수 담당.</li>
                                 <li>해병대 위험성 평가체계 개발 공로로 해병대 사령관 표창 수상.</li>
-                                <li>창업경진대회 및 해커톤에서 총 4개 수상.</li>
+                                <li>창업경진대회 및 해커톤에서 총 4개 수상.</li></ul>
                             </div><!--//item-->
                             <div class="item en">
                                 <h3 class="title">Software Developer (Petty Officer 2nd Class) - <span class="place"><a href="http://www.navy.mil.kr/mbshome/mbs/eng/index.do" target="_blank">Republic of Korea Navy</a></span> <span class="year">(Mar 2022 - 2023 Nov)</span></h3>
@@ -254,9 +421,9 @@
                                     <span class="badge badge-theme">iBATIS</span>
                                     <span class="badge badge-theme">MyBatis</span>
                                 </div>
-                                <li>Led the development and maintenance of Navy and Marine Corps web services in a military-secure environment.</li>
+                                <ul class="exp-list"><li>Led the development and maintenance of Navy and Marine Corps web services in a military-secure environment.</li>
                                 <li>Honored by the Marine Corps Commander for the successful development of the Marine Corps Risk Assessment System.</li>
-                                <li>Received 4 awards in startup competitions and hackathons.</li>
+                                <li>Received 4 awards in startup competitions and hackathons.</li></ul>
                             </div><!--//item-->
 
                             <hr class="divider" />
@@ -270,9 +437,9 @@
                                     <span class="badge badge-theme">Node.js</span>
                                     <span class="badge badge-theme">JavaScript</span>
                                 </div>
-                                <li>인턴십 이후 학업과 병행하며 재택과 출근을 병행해 프로젝트에 지속적으로 기여했습니다.</li>
+                                <ul class="exp-list"><li>인턴십 이후 학업과 병행하며 재택과 출근을 병행해 프로젝트에 지속적으로 기여했습니다.</li>
                                 <li>봉사활동확인서 발급 시스템 개발: Node.js로 기존 수작업 시스템을 자동화하여 참여율 500% 증가. QR 코드 및 검수 체계 도입으로 보안 강화.</li>
-                                <li>IoT 미세먼지 측정 장치 설계: ESP32 기반 하드웨어 및 임베디드 소프트웨어 개발, 측정 데이터를 커뮤니티 매핑 시스템에 통합. 미국 내쉬빌에서 피드백을 받아 개선 작업.</li>
+                                <li>IoT 미세먼지 측정 장치 설계: ESP32 기반 하드웨어 및 임베디드 소프트웨어 개발, 측정 데이터를 커뮤니티 매핑 시스템에 통합. 미국 내쉬빌에서 피드백을 받아 개선 작업.</li></ul>
                             </div><!--//item-->
                             <div class="item en">
                                 <h3 class="title">Software Developer - <span class="place"><a href="http://cmckorea.org" target="_blank">Community Mapping Center Korea</a></span> <span class="year">(Dec 2018 - Feb 2021)</span></h3>
@@ -283,9 +450,9 @@
                                     <span class="badge badge-theme">Node.js</span>
                                     <span class="badge badge-theme">JavaScript</span>
                                 </div>
-                                <li>After the internship, continued contributing to the project while balancing academic studies, working both remotely and in-office.</li>
+                                <ul class="exp-list"><li>After the internship, continued contributing to the project while balancing academic studies, working both remotely and in-office.</li>
                                 <li>Volunteer Certificate Issuance System Development: Automated the existing manual system using Node.js, resulting in a 500% increase in participation rate. Implemented QR codes and a review system to enhance security.</li>
-                                <li>IoT Fine Dust Measurement Device Design: Developed embedded software and hardware based on ESP32, integrating measurement data into the community mapping system. Collected feedback during field activities in Nashville, USA, and made improvements.</li>
+                                <li>IoT Fine Dust Measurement Device Design: Developed embedded software and hardware based on ESP32, integrating measurement data into the community mapping system. Collected feedback during field activities in Nashville, USA, and made improvements.</li></ul>
                             </div><!--//item-->
 
                             <hr class="divider" />
@@ -296,8 +463,8 @@
                                     <span class="badge badge-theme">Arduino</span>
                                     <span class="badge badge-theme">Scratch</span>
                                 </div>
-                                <li>실제 교육 현장에서 보조강사로 활동, 다양한 교육 활동을 지원.</li>
-                                <li>피지컬 컴퓨팅 교육을 위한 아이팝콘 기기와 블럭코딩을 활용한 과학 실험 콘텐츠 기획 및 교재 제작.</li>
+                                <ul class="exp-list"><li>실제 교육 현장에서 보조강사로 활동, 다양한 교육 활동을 지원.</li>
+                                <li>피지컬 컴퓨팅 교육을 위한 아이팝콘 기기와 블럭코딩을 활용한 과학 실험 콘텐츠 기획 및 교재 제작.</li></ul>
                             </div><!--//item-->
                             <div class="item en">
                                 <h3 class="title">Software Education Content Planner - <span class="place"><a href="http://injaram.com" target="_blank">inJARAM Software Education</a></span> <span class="year">(Jun 2018 - Aug 2018)</span></h3>
@@ -305,21 +472,350 @@
                                     <span class="badge badge-theme">Arduino</span>
                                     <span class="badge badge-theme">Scratch</span>
                                 </div>
-                                <li>Assisted in actual classroom activities, supporting various educational tasks.</li>
-                                <li>Planned and developed science experiment content using iPopcorn devices and block coding for physical computing education, along with creating corresponding teaching materials.</li>
+                                <ul class="exp-list"><li>Assisted in actual classroom activities, supporting various educational tasks.</li>
+                                <li>Planned and developed science experiment content using iPopcorn devices and block coding for physical computing education, along with creating corresponding teaching materials.</li></ul>
                             </div><!--//item-->
                         </div><!--//content-->  
                     </div><!--//section-inner-->                 
                 </section><!--//section-->
 
-               <section class="latest section">
+               <section class="latest section" id="projects">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading ko">프로젝트</h2>
                         <h2 class="heading en">Projects</h2>
                         <div class="content">
                             <div class="item row">
+                                <a class="col-md-4 col-12" href="https://soundok.music/app" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/soundok-app.png" alt="Soundok" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://soundok.music/app" target="_blank">
+                                        <span class=ko>사운독 (Soundok): 종합 음악 플랫폼</span>
+                                        <span class=en>Soundok: All-in-One Music Platform</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">FastAPI</span>
+                                        <span class="badge badge-theme">React</span>
+                                        <span class="badge badge-theme">React Native</span>
+                                        <span class="badge badge-theme">AWS</span>
+                                        <span class="badge badge-theme">Redis</span>
+                                        <span class="badge badge-theme">Qdrant</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>플레이리스트 마이그레이션·음악 공유 SNS·공연 정보/셋리스트·음악 리워드·아티스트 스마트링크를 아우르는 종합 음악 플랫폼. 창업한 회사에서 직접 만들고 운영 중인 서비스입니다.</span>
+                                        <span class=en>An all-in-one music platform covering playlist migration, a music-sharing social network, concert info &amp; setlists, music rewards, and artist smart links. Built and operated at the company I founded.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>크로스플랫폼 동일곡 매칭 엔진으로 국내외 8개 음원 서비스(멜론·유튜브뮤직·스포티파이 등) 간 플레이리스트 이동 지원</span>
+                                            <span class=en>Cross-platform song-matching engine enabling playlist migration across 8 music services (Melon, YouTube Music, Spotify, and more).</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>iOS·Android·웹·토스 미니앱(앱인토스) 4개 채널 출시·운영</span>
+                                            <span class=en>Live on 4 channels: iOS, Android, web, and a Toss mini-app.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>월간 사용자 3만+, 누적 게시물 5,000+, 함께한 아티스트 300+</span>
+                                            <span class=en>30K+ monthly users, 5,000+ posts, 300+ collaborating artists.</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                        <a href="https://soundok.music" target="_blank" title="Web" style="margin-right:12px;"><i class="fas fa-globe" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://apps.apple.com/kr/app/%EC%82%AC%EC%9A%B4%EB%8F%85/id6520396047" target="_blank" title="App Store" style="margin-right:12px;"><i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.koivis.soundok&amp;hl=ko" target="_blank" title="Google Play" style="margin-right:12px;"><i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="intoss://soundok" title="앱인토스 (토스 앱에서 열기)">
+                                            <img src="assets/images/projects/stores/toss.png" width="26" height="26" style="max-width: 100%; vertical-align: middle; border-radius: 6px;">
+                                        </a>
+                                    </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/Soundok/react-native-toss" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/react-native-toss.png" alt="react-native-toss" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/Soundok/react-native-toss" target="_blank">
+                                        <span class=ko>react-native-toss: 토스 로그인 React Native 라이브러리</span>
+                                        <span class=en>react-native-toss: Toss Login for React Native</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">React Native</span>
+                                        <span class="badge badge-theme">TypeScript</span>
+                                        <span class="badge badge-theme">iOS</span>
+                                        <span class="badge badge-theme">Android</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>토스 로그인 네이티브 SDK(iOS/Android)를 React Native에서 사용할 수 있게 감싼 오픈소스 브릿지 라이브러리. npm으로 배포 중입니다.</span>
+                                        <span class=en>An open-source bridge library that wraps Toss Login's native iOS/Android SDKs for React Native, published on npm.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>토스앱 설치 확인·로그인 요청·인가 코드 획득 등 로그인 플로우 전체 지원</span>
+                                            <span class=en>Covers the full login flow — Toss app detection, login requests, and authorization-code retrieval.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>TypeScript 지원, iOS(SPM)·Android 네이티브 모듈 브릿지</span>
+                                            <span class=en>TypeScript support with native module bridges for iOS (SPM) and Android.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>사운독 서비스에서 실제 사용 중</span>
+                                            <span class=en>Used in production by Soundok.</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                        <a href="https://github.com/Soundok/react-native-toss" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://www.npmjs.com/package/react-native-toss" target="_blank" rel="noopener" title="npm"><i class="fab fa-npm" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/wipi-emulator.png" alt="WIPI Emulator" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank">
+                                        <span class=ko>WIPI 에뮬레이터 (WIPI Emulator)</span>
+                                        <span class=en>WIPI Emulator</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">Rust</span>
+                                        <span class="badge badge-theme">Kotlin</span>
+                                        <span class="badge badge-theme">Swift</span>
+                                        <span class="badge badge-theme">Android</span>
+                                        <span class="badge badge-theme">iOS</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>2000년대 한국 피처폰 게임(WIPI)을 최신 iOS/Android에서 실행하는 네이티브 에뮬레이터. Rust로 작성한 순수 인터프리터 기반.</span>
+                                        <span class=en>A native emulator that runs classic 2000s Korean feature-phone (WIPI) games on modern iOS and Android — built on a pure-Rust interpreter.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>KTF(Clet)·LGT·SKT(SKVM)·J2ME 게임 포맷 지원, 240×320 픽셀 퍼펙트 렌더링 + 햅틱 키패드</span>
+                                            <span class=en>Supports KTF (Clet), LGT, SKT (SKVM), and J2ME formats with 240×320 pixel-perfect rendering and a haptic keypad.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>PCM·MIDI 오디오(rodio/cpal, rustysynth), 게임 라이브러리 자동 메타데이터 추출</span>
+                                            <span class=en>PCM/MIDI audio (rodio/cpal, rustysynth) and a game library with automatic metadata extraction.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>Google Play 출시 (iOS App Store 심사 중)</span>
+                                            <span class=en>Available on Google Play (iOS under App Store review).</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                            <a href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.wipi" target="_blank" title="Google Play">
+                                                <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                            </a>
+                                        </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/auth_autofill.png" alt="Auth Autofill" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank">
+                                        <span class=ko>본인인증 자동완성 (Auth Autofill)</span>
+                                        <span class=en>Auth Autofill</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">Browser Extension</span>
+                                        <span class="badge badge-theme">JavaScript</span>
+                                        <span class="badge badge-theme">Manifest V3</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>휴대전화 본인인증 자동완성 브라우저 확장프로그램<br>
+                                            휴대전화 인증 시 입력하는 정보들을 미리 등록한 뒤 휴대전화 인증을 진행할 때 자동 입력,클릭되어 보안문자만을 입력 후 SMS인증번호를 입력함으로서 간편하게 이용할 수 있도록 도와주는 브라우저 확장 프로그램</span>
+                                        <span class=en>Mobile phone self-authentication auto-complete browser extension<br>
+                                            A browser extension program that helps users to use the information conveniently by registering the information to be entered during mobile phone authentication in advance and then automatically entering and clicking when performing mobile phone authentication, entering only the captcha and then entering the SMS authentication number.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>WebExtension API를 이용하여 JavaScript로 개발</span>
+                                            <span class=en>Developed in JavaScript using the WebExtension API.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>Chrome / Whale / Safari / Firefox / Edge / Opera 출시</span>
+                                            <span class=en>Released to Chrome / Safari / Firefox / Edge / Opera</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>성과: 스토어에서 설치 사용자수 30,000명 이상</span>
+                                            <span class=en>Achievement: 30,000+ installed users on the store</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                            <a href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://chrome.google.com/webstore/detail/auth-autofill/picheccdgiofpnkjbkekgkcighblblem" target="_blank">
+                                                <img src="assets/images/projects/stores/chrome.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://store.whale.naver.com/detail/ncfnbaompehfhemgcpfkokcecnmohigo" target="_blank">
+                                                <img src="assets/images/projects/stores/whale.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://addons.mozilla.org/ko/firefox/addon/auth-autofill/" target="_blank">
+                                                <img src="assets/images/projects/stores/firefox.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://microsoftedge.microsoft.com/addons/detail/본인인증-자동완성-auth-autofill/lifloelaookkeeajgkoobphhdkinfhlp" target="_blank">
+                                                <img src="assets/images/projects/stores/edge.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://addons.opera.com/ko/extensions/details/bonininjeung-jadongwanseong-auth-autofill/" target="_blank">
+                                                <img src="assets/images/projects/stores/opera.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://apps.apple.com/kr/app/%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-for-safari/id1550426920" target="_blank">
+                                                <img src="assets/images/projects/stores/safari.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.authautofill.samsung" target="_blank" title="Samsung Internet">
+                                                <img src="assets/images/projects/stores/samsung.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                        </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/Email-Sender-Info" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/email-sender-info.png" alt="Email Sender Info" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/Email-Sender-Info" target="_blank">
+                                        <span class=ko>이메일 발신자 정보 (Email Sender Info)</span>
+                                        <span class=en>Email Sender Info</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">Browser Extension</span>
+                                        <span class="badge badge-theme">JavaScript</span>
+                                        <span class="badge badge-theme">Manifest V3</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>이메일 발신자 옆에 파비콘·신원 배지를 표시해 "받은편지함의 발신자 표시(Caller ID)"를 제공하는 브라우저 확장 프로그램. 본문을 읽지 않고 발신자 정보만으로 신원을 시각화합니다.</span>
+                                        <span class=en>A browser extension that shows sender favicons and identity badges next to each email sender — "Caller ID for your inbox" — visualizing sender identity without reading the email body.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>8개 메일 서비스 지원 (Gmail · Outlook · iCloud · Yahoo · 네이버 · 다음 · 카카오 · 네이트), Chrome · Firefox · Edge · Whale 출시</span>
+                                            <span class=en>Supports 8 mail services (Gmail, Outlook, iCloud, Yahoo, Naver, Daum, Kakao, Nate) across Chrome, Firefox, Edge, and Whale.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>약 4,800개 개인 이메일 제공자 분류 및 정부 도메인 엠블럼 표시</span>
+                                            <span class=en>Classifies ~4,800 consumer email providers and shows government-domain emblems.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>프라이버시 중심 — 애널리틱스·텔레메트리 없음</span>
+                                            <span class=en>Privacy-focused — no analytics or telemetry.</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                            <a href="https://github.com/ParkJeongseop/Email-Sender-Info" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://chromewebstore.google.com/detail/email-sender-info/jmohebmhoocghblgakoflolnjaephmpg" target="_blank">
+                                                <img src="assets/images/projects/stores/chrome.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://store.whale.naver.com/detail/cmhdkjaoliiocjfjoaalfahnmnealkcd" target="_blank">
+                                                <img src="assets/images/projects/stores/whale.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://addons.mozilla.org/ko/firefox/addon/email-sender-info/" target="_blank">
+                                                <img src="assets/images/projects/stores/firefox.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                            <a href="https://microsoftedge.microsoft.com/addons/detail/email-sender-info/fjliddlggkfhjplmnhkeaahehnckajde" target="_blank">
+                                                <img src="assets/images/projects/stores/edge.png" width="32" height="32" style="max-width: 100%;">
+                                            </a>
+                                        </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/HTML-Email-Attachment-Preview" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/html-email-attachment-preview.png" alt="HTML Email Attachment Preview" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/HTML-Email-Attachment-Preview" target="_blank">
+                                        <span class=ko>HTML 첨부파일 미리보기 (HTML Email Attachment Preview)</span>
+                                        <span class=en>HTML Email Attachment Preview</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">Browser Extension</span>
+                                        <span class="badge badge-theme">JavaScript</span>
+                                        <span class="badge badge-theme">Manifest V3</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>HTML 이메일 첨부파일을 다운로드 없이 메일함 안에서 바로 미리보는 브라우저 확장 프로그램. Gmail·네이버·다음·카카오메일을 지원합니다.</span>
+                                        <span class=en>A browser extension that previews HTML email attachments right inside your inbox without downloading. Supports Gmail, Naver, Daum, and Kakao Mail.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>Gmail은 인라인 iframe, 그 외 서비스는 새 창 뷰어로 렌더링 (인쇄·PDF 저장 지원)</span>
+                                            <span class=en>Renders inline via iframe on Gmail and in a pop-out viewer on other services (with print / save-as-PDF).</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>샌드박스(opaque origin) 확장 페이지에서 격리 렌더링, 발신자별 허용 목록 관리</span>
+                                            <span class=en>Isolated rendering in a sandboxed (opaque-origin) extension page, with a per-sender allowlist.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>다크 모드·54개 언어 UI, 애널리틱스·텔레메트리 없음</span>
+                                            <span class=en>Dark mode, UI in 54 languages, and no analytics or telemetry.</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                        <a href="https://github.com/ParkJeongseop/HTML-Email-Attachment-Preview" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://chromewebstore.google.com/detail/html-email-attachment-pre/loijnellbcoafmelmppalpbeglohlnbk" target="_blank">
+                                            <img src="assets/images/projects/stores/chrome.png" width="32" height="32" style="max-width: 100%;">
+                                        </a>
+                                        <a href="https://addons.mozilla.org/addon/html-email-attachment-preview/" target="_blank">
+                                            <img src="assets/images/projects/stores/firefox.png" width="32" height="32" style="max-width: 100%;">
+                                        </a>
+                                    </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
+                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/Tally-Counter" target="_blank">
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/tally-counter.png" alt="Tally Counter" />
+                                </a>
+                                <div class="desc col-md-8 col-12">
+                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/Tally-Counter" target="_blank">
+                                        <span class=ko>물리적 계수기 (Physical Tally Counter)</span>
+                                        <span class=en>Physical Tally Counter</span>
+                                    </a></h3>
+                                    <div class="tags">
+                                        <span class="badge badge-theme">React Native</span>
+                                        <span class="badge badge-theme">TypeScript</span>
+                                        <span class="badge badge-theme">iOS</span>
+                                        <span class="badge badge-theme">Android</span>
+                                    </div>
+                                    <p class="mb-2">
+                                        <span class=ko>물리 버튼으로 무엇이든 세는 카운터 모바일 앱. 스마트폰 볼륨 버튼으로 증감하고, 자동 저장·복원과 햅틱 피드백을 지원합니다.</span>
+                                        <span class=en>A mobile counter app for tallying anything with physical buttons — increment/decrement via the phone's volume keys, with auto save/restore and haptic feedback.</span>
+                                    </p>
+                                    <ul>
+                                        <li>
+                                            <span class=ko>하드웨어 볼륨 버튼으로 카운트 증감 (커스텀 네이티브 모듈)</span>
+                                            <span class=en>Increment/decrement counts using hardware volume buttons (custom native modules).</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>자동 저장·복원(AsyncStorage) 및 햅틱 피드백</span>
+                                            <span class=en>Automatic save/restore (AsyncStorage) and haptic feedback.</span>
+                                        </li>
+                                        <li>
+                                            <span class=ko>그라디언트 UI, iOS/Android 크로스플랫폼</span>
+                                            <span class=en>Gradient-based UI, cross-platform on iOS and Android.</span>
+                                        </li>
+                                    </ul>
+                                    <p dir="auto">
+                                            <a href="https://github.com/ParkJeongseop/Tally-Counter" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.tallycounter" target="_blank" title="Google Play" style="margin-right:12px;">
+                                                <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                            </a>
+                                            <a href="https://apps.apple.com/kr/app/physical-tally-counter/id6751624376" target="_blank" title="App Store">
+                                                <i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i>
+                                            </a>
+                                        </p>
+                                </div><!--//desc-->
+                            </div><!--//item-->
+
+                            <div class="item row">
                                 <a class="col-md-4 col-12" href="https://apps.apple.com/us/app/tinkly/id6505013704" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/tinkly.png" alt="Tinkly" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/tinkly.png" alt="Tinkly" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://apps.apple.com/us/app/tinkly/id6505013704" target="_blank">
@@ -355,21 +851,30 @@
                                         <span class=ko>소프트웨어 마에스트로 프로젝트입니다.</span>
                                         <span class=en>Part of the Software Maestro Program.</span>
                                     </p>
-                                    <p><a class="more-link" href="https://apps.apple.com/us/app/tinkly/id6505013704" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://apps.apple.com/us/app/tinkly/id6505013704" target="_blank" title="App Store">
+                                            <i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i>
+                                        </a>
+                                    </p>
                                     <!-- 공식 웹사이트 배포중단 -->
                                     <!-- <p><a class="more-link" href="https://tinkly.app" target="_blank"><i class="fas fa-external-link-alt"></i>
                                         <span class=ko>바로가기</span>
                                         <span class=en>Find out more</span>
                                     </a></p> -->
-                                </div><!--//desc-->                          
+                                </div><!--//desc-->
                             </div><!--//item-->
 
+                            <div class="text-center mt-4" id="more-projects-top" hidden>
+                                <button type="button" class="btn btn-cta-secondary more-projects-btn expanded" onclick="toggleMoreProjects(this)">
+                                    <span class="less-label"><span class=ko>접기</span><span class=en>Show less</span></span>
+                                    <i class="fas fa-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+
+                            <div id="more-projects" hidden>
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/parkjeongseop/IoT_WEB_Milibox_WaterLand" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/milibox.gif" alt="Defense black box" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/milibox.png" alt="Defense black box" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/parkjeongseop/IoT_WEB_Milibox_WaterLand" target="_blank">
@@ -385,7 +890,7 @@
                                     <p class="mb-2">
                                         <span class=ko>2022 군장병 공개SW 온라인 해커톤 공군참모총장상 수상<br>
                                             RF통신을 통해 부대출입을 인식하고, 부대 내부에서는 보안을 위해 암호화하여 녹화하고, 인트라넷을 통해 복호화하는 솔루션</span>
-                                        <span class=en>Awarded the Air Force Chief of Staff Award at tthe 2022 Military Service Open Source Software Online Hackathon<br>
+                                        <span class=en>Awarded the Air Force Chief of Staff Award at the 2022 Military Service Open Source Software Online Hackathon<br>
                                             A solution that recognizes unit entry through RF communication, encrypts and records internally for security, and decrypts through intranet.</span>
                                     </p>
                                     <ul class="list-contributions">
@@ -394,16 +899,15 @@
                                             <span class=en>Team composition ― Webfront1, Backend and IoT1 - Responsible for Backend and IoT1</span>
                                         </li>
                                     </ul>
-                                    <p><a class="more-link" href="https://github.com/parkjeongseop/IoT_WEB_Milibox_WaterLand" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/parkjeongseop/IoT_WEB_Milibox_WaterLand" target="_blank" rel="noopener" title="GitHub"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/Navy-Software-Developers/to-the-training-center" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/bootcamp.png" alt="Way to bootcamp" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/bootcamp.png" alt="Way to bootcamp" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/Navy-Software-Developers/to-the-training-center" target="_blank">
@@ -430,25 +934,17 @@
                                             <span class=ko>팀 구성 ― 웹프론트1, 풀스택1 - 풀스택을 담당</span>
                                             <span class=en>Team composition ― Web front 1, full stack 1 - Responsible for full stack</span>
                                         </li>
-                                        <li class="list-contribution-item"><a href="http://훈련소가는길.한국" target="_blank" rel="noopener">
-                                                http://훈련소가는길.한국
-                                            </a></li>
-                                        <li class="list-contribution-item"><a href="https://github.com/Navy-Software-Developers/to-the-training-center"
-                                                target="_blank" rel="noopener">
-                                                https://github.com/Navy-Software-Developers/to-the-training-center
-                                            </a></li>
+                                        <li class="list-contribution-item">http://훈련소가는길.한국</li>
                                     </ul>
-                                    <p><a class="more-link" href="https://github.com/Navy-Software-Developers/to-the-training-center" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/Navy-Software-Developers/to-the-training-center" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
-                            <!--//국민대 단축 URL 서비스-->
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/kmu-koss/kmu.ac" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/kmu.ac.png" alt="Short URL service for Kookmin University" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/kmu.ac.png" alt="Short URL service for Kookmin University" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/kmu-koss/kmu.ac" target="_blank">
@@ -467,33 +963,22 @@
                                         <span class=en>A shortened link issuance service in kmu.ac/keyword format that can only be used by campus members through a university account</span>
                                     </p>
                                     <ul class="list-contributions">
-                                        <li class="list-contribution-item">
-                                            <span class=ko>팀 구성 ― 개인</span>
-                                            <span class=en>Team composition - Individual</span>
-                                        </li>
-                                        <li class="list-contribution-item"><a href="http://kmu.ac" target="_blank" rel="noopener">
-                                                http://kmu.ac
-                                            </a></li>
-                                        <li class="list-contribution-item"><a href="https://github.com/kmu-koss/kmu.ac"
-                                                target="_blank" rel="noopener">
-                                                https://github.com/kmu-koss/kmu.ac
-                                            </a></li>
+                                        <li class="list-contribution-item">http://kmu.ac</li>
                                     </ul>
-                                    <p><a class="more-link" href="https://github.com/kmu-koss/kmu.ac" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/kmu-koss/kmu.ac" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
-                            
+
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://kookmin-sw.github.io/capstone-2021-3/" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/RePET.png" alt="RePET: AI-Powered Plastic Cup Sorter and Reward App" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/RePET.png" alt="RePET: AI-Powered Plastic Cup Sorter and Reward App" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://kookmin-sw.github.io/capstone-2021-3/" target="_blank">
-                                        <span class=ko>RePET: AI-Powered Plastic Cup Sorter and Reward App</span>
-                                        <span class=en>쓰샘: AI 기반 플라스틱 컵 분류 및 리워드 앱</span>
+                                        <span class=ko>쓰샘 (RePET): AI 기반 플라스틱 컵 분류 및 리워드 앱</span>
+                                        <span class=en>RePET: AI-Powered Plastic Cup Sorter and Reward App</span>
                                     </a></h3>
                                     <div class="tags">
                                         <span class="badge badge-theme">FastAPI</span>
@@ -536,91 +1021,12 @@
                                                 https://www.inobus.co.kr/
                                             </a></li>
                                     </ul>
-                                    <p><a class="more-link" href="https://kookmin-sw.github.io/capstone-2021-3/" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
-                            <!--//본인인증 자동완성 (Auth Autofill)-->
-                            <div class="item row">
-                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/auth_autofill.png" alt="Auth Autofill" />
-                                </a>
-                                <div class="desc col-md-8 col-12">
-                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank">
-                                        <span class=ko>본인인증 자동완성 (Auth Autofill)</span>
-                                        <span class=en>Auth Autofill</span>
-                                    </a></h3>
-                                    <div class="tags">
-                                        <span class="badge badge-theme">Chrome Extension</span>
-                                        <span class="badge badge-theme">HTML5</span>
-                                        <span class="badge badge-theme">CSS</span>
-                                        <span class="badge badge-theme">JavaScript</span>
-                                    </div>
-                                    <p class="mb-2">
-                                        <span class=ko>휴대전화 본인인증 자동완성 브라우저 확장프로그램<br>
-                                            휴대전화 인증 시 입력하는 정보들을 미리 등록한 뒤 휴대전화 인증을 진행할 때 자동 입력,클릭되어 보안문자만을 입력 후 SMS인증번호를 입력함으로서 간편하게 이용할 수 있도록 도와주는 브라우저 확장 프로그램</span>
-                                        <span class=en>Mobile phone self-authentication auto-complete browser extension<br>
-                                            A browser extension program that helps users to use the information conveniently by registering the information to be entered during mobile phone authentication in advance and then automatically entering and clicking when performing mobile phone authentication, entering only the captcha and then entering the SMS authentication number.</span>
-                                    </p>
-                                    <ul>
-                                        <li>
-                                            <span class=ko>WebExtension API를 이용하여 JavaScript로 개발</span>
-                                            <span class=en>Developed in JavaScript using the WebExtension API.</span>
-                                        </li>
-                                        <li>
-                                            <span class=ko>Chrome / Whale / Safari / Firefox / Edge / Opera 출시</span>
-                                            <span class=en>Released to Chrome / Safari / Firefox / Edge / Opera</span>
-                                        </li>
-                                        <li>
-                                            <span class=ko>성과: 스토어에서 설치 사용자수 30,000명 이상</span>
-                                            <span class=en>Achievement: 30,000+ installed users on the store</span>
-                                        </li>
-                                    </ul>
-                                    <ul class="list-contributions">
-                                        <li class="list-contribution-item">
-                                            <span class=ko>팀 구성 ― 개인</span>
-                                            <span class=en>Team composition - Individual</span>
-                                        </li>
-                                        <li class="list-contribution-item"><a href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank"
-                                                rel="noopener">
-                                                https://github.com/ParkJeongseop/AuthAutoFill
-                                            </a></li>
-                                    </ul>
-                                    <p><a class="more-link" href="https://github.com/ParkJeongseop/AuthAutoFill" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                        <p dir="auto">
-                                            <a href="https://chrome.google.com/webstore/detail/auth-autofill/picheccdgiofpnkjbkekgkcighblblem" target="_blank">
-                                                <img src="assets/images/projects/stores/chrome.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                            <a href="https://store.whale.naver.com/detail/ncfnbaompehfhemgcpfkokcecnmohigo" target="_blank">
-                                                <img src="assets/images/projects/stores/whale.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                            <a href="https://addons.mozilla.org/ko/firefox/addon/auth-autofill/" target="_blank">
-                                                <img src="assets/images/projects/stores/firefox.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                            <a href="https://microsoftedge.microsoft.com/addons/detail/본인인증-자동완성-auth-autofill/lifloelaookkeeajgkoobphhdkinfhlp" target="_blank">
-                                                <img src="assets/images/projects/stores/edge.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                            <a href="https://addons.opera.com/ko/extensions/details/bonininjeung-jadongwanseong-auth-autofill/" target="_blank">
-                                                <img src="assets/images/projects/stores/opera.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                            <a href="https://apps.apple.com/kr/app/%EB%B3%B8%EC%9D%B8%EC%9D%B8%EC%A6%9D-%EC%9E%90%EB%8F%99%EC%99%84%EC%84%B1-for-safari/id1550426920" target="_blank">
-                                                <img src="assets/images/projects/stores/safari.png" width="32" height="32" style="max-width: 100%;">
-                                            </a>
-                                        </p>
-                                    </a></p>
-                                </div><!--//desc-->                          
-                            </div><!--//item-->
-
-                            
-                            <!--//MyPrecious-Webtoon-->
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/likelion-kookmin/MyPrecious-Webtoon" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/project-1.png" alt="MyPrecious-Webtoon" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/myprecious-webtoon.png" alt="MyPrecious-Webtoon" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/likelion-kookmin/MyPrecious-Webtoon" target="_blank">MyPrecious-Webtoon</a></h3>
@@ -653,23 +1059,16 @@
                                             <span class=ko>팀 구성 ― 프론트엔드2, 백엔드2, 디자인1 - 백엔드 데이터 크롤링을 담당.</span>
                                             <span class=en>Team composition ― Frontend 2, Backend 2, Design 1 - Responsible for crawling backend data.</span>
                                         </li>
-                                        <li class="list-contribution-item"><a href="https://github.com/likelion-kookmin/MyPrecious-Webtoon" target="_blank"
-                                                rel="noopener">
-                                                https://github.com/likelion-kookmin/MyPrecious-Webtoon
-                                            </a></li>
                                     </ul>
-                                    <p><a class="more-link" href="https://github.com/likelion-kookmin/MyPrecious-Webtoon" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/likelion-kookmin/MyPrecious-Webtoon" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
-                            
-                            <!--//Smart Game Supporter-->
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/SmartWebService/SmartGameSupporter" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/smart_game_supporter.png" alt="Smart Game Supporter" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/smart_game_supporter.png" alt="Smart Game Supporter" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/SmartWebService/SmartGameSupporter" target="_blank">Smart Game Supporter</a></h3>
@@ -723,23 +1122,16 @@
                                             <span class=ko>팀 구성 ― 게임구현2, 웹프론트2, 웹소켓통신1, 웹소켓통신 및 IoT1 - 웹소켓통신 및 IoT를 담당.</span>
                                             <span class=en>Team composition ― Game Implementation 2, Web Front 2, Web Socket Communication 1, Web Socket Server and IoT 1 - Responsible for Web Socket Server and IoT.</span>
                                         </li>
-                                        <li class="list-contribution-item"><a href="https://github.com/SmartWebService/SmartGameSupporter" target="_blank"
-                                                rel="noopener">
-                                                https://github.com/SmartWebService/SmartGameSupporter
-                                            </a></li>
                                     </ul>
-                                    <p><a class="more-link" href="https://github.com/SmartWebService/SmartGameSupporter" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                        <span class=ko>바로가기</span>
-                                        <span class=en>Find out more</span>
-                                    </a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/SmartWebService/SmartGameSupporter" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
-                            
-                            <!--//Smart Study Calendar-->
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/smart_study_calendar.png" alt="Smart Study Calendar" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/smart_study_calendar.png" alt="Smart Study Calendar" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank">Smart Study Calendar</a></h3>
@@ -779,21 +1171,17 @@
                                             <span class=ko>팀 구성 ― 디자인1, 웹프론트1, 풀스택1 - 풀스택을 담당.</span>
                                             <span class=en>Team composition ― 1 design, 1 web front, 1 full stack - Responsible for full stack.</span>
                                         </li>
-                                        <li class="list-contribution-item"><a href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank"
-                                                rel="noopener">
-                                                https://github.com/SmartWebService/SmartStudyCalendar
-                                            </a></li>
+                                        <li class="list-contribution-item">http://www.smart-study-calendar.com</li>
                                     </ul>
-                                    <p><a class="more-link ko" href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank"><i class="fas fa-external-link-alt"></i>바로가기</a></p>
-                                    <p><a class="more-link en" href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank"><i class="fas fa-external-link-alt"></i>Find out more</a></p>
+                                    <p dir="auto">
+                                        <a href="https://github.com/SmartWebService/SmartStudyCalendar" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
 
-                            
-                            <!--//전자청원 (Cheongwon Pay)-->
                             <div class="item row">
                                 <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank">
-                                <img class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/cheongwonpay.png" alt="Cheongwon Pay" />
+                                <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/cheongwonpay.png" alt="Cheongwon Pay" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
                                     <h3 class="title"><a href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank">
@@ -825,31 +1213,29 @@
                                             <span class=en>Implemented communication between android application and server with sockets.</span>
                                         </li>
                                     </ul>
-                                    <ul class="list-contributions">
-                                        <li class="list-contribution-item">
-                                            <span class=ko>팀 구성 ― 개인</span>
-                                            <span class=en>Team composition - Individual</span>
-                                        </li>
-                                        <li class="list-contribution-item"><a href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank"
-                                                rel="noopener">
-                                                https://github.com/ParkJeongseop/CheongwonPay
-                                            </a></li>
-                                    </ul>
-                                    <p><a class="more-link ko" href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank"><i class="fas fa-external-link-alt"></i>바로가기</a></p>
-                                    <p><a class="more-link en" href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank"><i class="fas fa-external-link-alt"></i>Find out more</a></p>
+                                    <p dir="auto">
+                                            <a href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.cheongwonpay" target="_blank" title="Google Play">
+                                            <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                        </a>
+                                    </p>
                                 </div><!--//desc-->                          
                             </div><!--//item-->
-                            
-                            <a class="btn btn-cta-secondary" href="https://github.com/ParkJeongseop">
-                                <span class=ko>GitHub에서 더보기 </span>
-                                <span class=en>More on GitHub </span>
-                                <i class="fas fa-chevron-right pt-1"></i></a>
-                            
-                        </div><!--//content-->  
+                            </div>
+
+                            <div class="text-center mt-4" id="more-projects-wrap">
+                                <button type="button" class="btn btn-cta-secondary more-projects-btn" onclick="toggleMoreProjects(this)">
+                                    <span class="more-label"><span class=ko>프로젝트 더보기</span><span class=en>Show more projects</span></span>
+                                    <span class="less-label"><span class=ko>접기</span><span class=en>Show less</span></span>
+                                    <i class="fas fa-chevron-down ms-1"></i>
+                                </button>
+                            </div>
+                        </div><!--//content-->
                     </div><!--//section-inner-->                
                 </section><!--//section-->
 
-                <section class="projects section">
+
+                <section class="projects section" id="education">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading">
                             <span class="ko">교육</span>
@@ -858,7 +1244,7 @@
                         <div class="content">
 
                             <div class="item en">
-                                <h3 class="title"><span class="place"><a href="https://english.kookmin.ac.kr" target="_blank">Kookmin University</a></span> - Bachelor, Computer Science <span class="year"><span>(Mar 2018 - Feb 2026)</span></span></h3>
+                                <h3 class="title"><span class="place"><a href="https://english.kookmin.ac.kr" target="_blank">Kookmin University</a></span> - Bachelor, Computer Science <span class="year"><span>(Mar 2018 - Feb 2027)</span></span></h3>
                                 <p>
                                     <span>Studied core subjects such as Data Structures, Algorithms, and Software Engineering. Served as a teaching assistant for Data Structures, Software Programming, and other courses, assisting with course materials and student mentoring. Gained practical experience in backend development, database design, and cloud computing through team projects and hackathons.</span>
                                 </p>
@@ -871,7 +1257,7 @@
                                 </p>
                             </div><!--//item-->
                             <div class="item ko">
-                                <h3 class="title"><span class="place"><a href="https://www.kookmin.ac.kr" target="_blank">국민대학교</a></span> - 컴퓨터공학(소프트웨어) 학사 <span class="year"><span>(2018-03 ~ 재학 중)</span></span></h3>
+                                <h3 class="title"><span class="place"><a href="https://www.kookmin.ac.kr" target="_blank">국민대학교</a></span> - 컴퓨터공학(소프트웨어) 학사 <span class="year"><span>(2018-03 ~ 2027-02)</span></span></h3>
                                 <p>
                                     <span>자료구조, 알고리즘, 소프트웨어 공학과 같은 핵심 과목을 학습하였습니다. 자료구조, 소프트웨어 프로그래밍 등의 과목의 학부 조교로 활동하며 강의 자료 준비와 학생들을 돕는 역할을 했습니다. 팀 프로젝트와 해커톤을 통해 백엔드 개발, 데이터베이스 설계, 클라우드 컴퓨팅에 대한 실무 경험을 쌓았습니다.</span>
                                 </p>
@@ -951,8 +1337,7 @@
                     </div><!--//section-inner-->                 
                 </section><!--//section-->
 
-
-                <section class="projects section">
+                <section class="projects section" id="awards">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading">
                             <span class="ko">수상</span>
@@ -973,8 +1358,8 @@
                                         <span class="en">(Jan 17th, 2025)</span>
                                 </span></h3>
                                 <p>
-                                    <span class="ko">공동 창업한 회사 KOIVIS의 "sounok" 제품으로 국민대학교 창업경진대회에서 1위를 수상</span>
-                                    <span class="en">Awarded 1st Place at the Kookmin University Entrepreneurship Competition for the "sounok" product by KOIVIS, a company co-founded by me, receiving the Grand Prize from the President of Kookmin University.</span>
+                                    <span class="ko">창업한 회사의 Soundok 서비스로 국민대학교 창업경진대회에서 1위를 수상</span>
+                                    <span class="en">Awarded 1st Place at the Kookmin University Entrepreneurship Competition for Soundok, the service of the company I founded, receiving the Grand Prize from the President of Kookmin University.</span>
                                 </p>
                             </div><!--//item-->
 
@@ -1000,7 +1385,7 @@
                             <div class="item">
                                 <h3 class="title">
                                     <span class="ko">국민대X숙명여대 연합 해커톤 코코톤, 우수상 - </span>
-                                    <span class="en">3th Place, Kookmin University & Sookmyung Women's University Joint Hackathon</span>
+                                    <span class="en">3rd Place, Kookmin University & Sookmyung Women's University Joint Hackathon</span>
                                     <span class="year">
                                         <span class="ko">(2024/09/29)</span>
                                         <span class="en">(Sep 29th, 2024)</span>
@@ -1099,7 +1484,7 @@
                                             </a></span> 
                                     <span class="year">
                                         <span class="ko">(2022/09/21)</span>
-                                        <span class="en">(October 21th, 2022)</span>
+                                        <span class="en">(September 21st, 2022)</span>
                                 </span></h3>
                                 <p>
                                     <span class="ko">"훈련소가는길" 프로젝트 개발<br>
@@ -1143,7 +1528,7 @@
                                     <span class="en">2nd Place, ChoDing CTF at POC 2011 - </span>
                                     <span class="year">
                                         <span class="ko">(2011/11/04)</span>
-                                        <span class="en">(Nov 11th, 2011)</span>
+                                        <span class="en">(Nov 4th, 2011)</span>
                                 </span></h3>
                                 <p>
                                     <span class="ko">해킹 및 보안 컨퍼런스인 POC에서 열린 초등학생 대상 ChoDing CTF에서 2위를 수상하였으며, 이를 통해 사이버 보안 분야에 대한 조기 관심과 기술을 입증하였습니다.</span>
@@ -1152,8 +1537,9 @@
                             </div><!--//item-->
 
                         </div><!--//content-->  
-                    </div><!--//section-inner-->                 
+                    </div><!--//section-inner-->
                 </section><!--//section-->
+
             </div><!--//primary-->
             <div class="secondary col-lg-4 col-12">
 
@@ -1167,17 +1553,39 @@
                                     <span class="en"><span class="sr-only">Location:</span>Seoul, S.Korea</span>
                                 </li>
                                 <li><i class="fas fa-building"></i>
-                                    <span class="ko"><span class="sr-only">직장:</span><a href="http://www.koivis.com" target="_blank">KOIVIS</a></span>
-                                    <span class="en"><span class="sr-only">Company:</span><a href="http://www.koivis.com" target="_blank">KOIVIS</a></span>
+                                    <span class="ko"><span class="sr-only">직장:</span><a href="https://about.soundok.music/" target="_blank">Soundok</a></span>
+                                    <span class="en"><span class="sr-only">Company:</span><a href="https://about.soundok.music/" target="_blank">Soundok</a></span>
                                 </li>
-                                <li><i class="fas fa-clock"></i><span class="sr-only">Local Time:</span><span id="current-local-time">loding..</span> (UTC +09:00)</li>
+                                <li><i class="fas fa-clock"></i><span class="sr-only">Local Time:</span><span id="current-local-time">loading..</span> (UTC +09:00)</li>
                                 <li><i class="fas fa-envelope"></i><span class="sr-only">Email:</span><a href="mailto:parkjeongseop@parkjeongseop.com" target="_blank">parkjeongseop@parkjeongseop.com</a></li>
                                 <li><i class="fas fa-link"></i><span class="sr-only">Website:</span><a href="http://www.parkjeongseop.com" target="_blank">http://www.parkjeongseop.com</a></li>
                             </ul>
                         </div><!--//content-->  
-                    </div><!--//section-inner-->                 
+                    </div><!--//section-inner-->
                 </aside><!--//aside-->
-                
+
+                <aside class="soundok aside section">
+                    <a class="soundok-banner shadow-sm rounded" href="https://soundok.music/app" target="_blank" rel="noopener">
+                        <img src="assets/images/soundok-banner.png" alt="Soundok — 국내 최초 플레이리스트 이동 서비스" />
+                    </a>
+                </aside><!--//aside-->
+
+                <aside class="latest-posts aside section" id="latest-posts" hidden>
+                    <div class="section-inner shadow-sm rounded">
+                        <h2 class="heading">
+                            <span class="ko">최근 글</span>
+                            <span class="en">Latest posts</span>
+                        </h2>
+                        <div class="content">
+                            <div id="latest-posts-list"></div>
+                            <p><a class="more-link" href="/blog"><i class="fas fa-external-link-alt"></i>
+                                <span class="ko">블로그 전체 보기</span>
+                                <span class="en">Visit the blog</span>
+                            </a></p>
+                        </div><!--//content-->
+                    </div><!--//section-inner-->
+                </aside><!--//aside-->
+
                 <aside class="skills aside section">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading">
@@ -1185,91 +1593,80 @@
                             <span class="en">Skills</span>
                         </h2>
                         <div class="content">
-                            <p class="intro">
-                                <span class="ko">
-                                    파이썬은 빠른 개발에 용이 하기때문에 개인 프로젝트, 알고리즘 공부 등에 자주 사용하고, 자바스크립트는 웹 프론트엔드, 직장 프로젝트 웹서버, 브라우저 확장프로그램 개발등에 사용하고, C++은 임베디드소프트웨어개발에 주로 사용하고, 자바는 직장 프로젝트 웹서버, 안드로이드개발등에 사용하였습니다.
-                                </span>
-                                <span class="en">
-                                    Because Python is easy to develop quickly, it is often used for personal projects and algorithm study, JavaScript is used for web front-end, work project web server, browser extension program development, etc., C++ is mainly used for embedded software development, Java was used for work project web server, Android development, etc.
-                                </span>
-                            </p>
-                            
-                            <div class="skillset">
-                               
-                                <div class="item">
-                                    <h3 class="level-title">Python &amp; Django<span class="level-label">
-                                        <span class="ko">매우 숙련</span>
-                                        <span class="en">Expert</span>
-                                    </span></h3>
-
-                                    <div class="level-bar progress">
-									    <div class="progress-bar level-bar-inner" role="progressbar" style="width: 96%" aria-valuenow="96"  aria-valuemin="0" aria-valuemax="96"></div>
-									</div><!--//level-bar-->                               
-                                </div><!--//item-->
-                                
-                                <div class="item">
-                                    <h3 class="level-title">Javascript<span class="level-label">
-                                        <span class="ko">숙련</span>
-                                        <span class="en">Pro</span>
-                                    </span></h3>
-                                    <div class="level-bar progress">
-									    <div class="progress-bar level-bar-inner" role="progressbar" style="width: 80%" aria-valuenow="80"  aria-valuemin="0" aria-valuemax="80"></div>
-									</div><!--//level-bar-->                                   
-                                </div><!--//item-->
-                                
-                                <div class="item">
-                                    <h3 class="level-title">C++<span class="level-label">
-                                        <span class="ko">숙련</span>
-                                        <span class="en">Pro</span>
-                                    </span></h3>
-                                    <div class="level-bar progress">
-									    <div class="progress-bar level-bar-inner" role="progressbar" style="width: 80%" aria-valuenow="80"  aria-valuemin="0" aria-valuemax="80"></div>
-									</div><!--//level-bar-->                                  
-                                </div><!--//item-->
-                                
-                                <div class="item">
-                                    <h3 class="level-title">Java &amp; Spring<span class="level-label">
-                                        <span class="ko">숙련</span>
-                                        <span class="en">Pro</span>
-                                    </span></h3>
-                                    <div class="level-bar progress">
-									    <div class="progress-bar level-bar-inner" role="progressbar" style="width: 80%" aria-valuenow="80"  aria-valuemin="0" aria-valuemax="80"></div>
-									</div><!--//level-bar-->                                  
-                                </div><!--//item-->
-                                
-                                <p><a class="more-link" href="https://github.com/ParkJeongseop" target="_blank"><i class="fas fa-external-link-alt"></i>
-                                    <span class="ko">GitHub에서 더보기</span>
-                                    <span class="en">More on GitHub</span>
-                                </a></p> 
-                            </div>              
-                        </div><!--//content-->  
-                    </div><!--//section-inner-->                 
-                </aside><!--//section-->
-
-                <aside class="education aside section">
-                    <div class="section-inner shadow-sm rounded">
-                        <h2 class="heading">
-                            <span class="ko">학력</span>
-                            <span class="en">Education</span>
-                        </h2>
-                        <div class="content">
-                            <div class="item">
-                                <h3 class="title"><i class="fas fa-graduation-cap"></i>
-                                    <span class="ko"> 소프트웨어 전공 • 학사</span>
-                                    <span class="en"> BSc Computer Science</span>
-                                </h3>
-                                <h4 class="university">
-                                    <span class="ko"><a href="https://www.kookmin.ac.kr" target="_blank">국민대학교</a> </span>
-                                    <span class="en"><a href="https://english.kookmin.ac.kr" target="_blank">Kookmin University</a> </span>
-                                <span class="year">
-                                    <span class="ko">(2018-03 ~ 재학 중)</span>
-                                    <span class="en">(March 2018 - Present)</span>
-                                </span></h4>
-                            </div><!--//item-->
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Backend</h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">Python</span>
+                                    <span class="badge badge-theme">Django</span>
+                                    <span class="badge badge-theme">FastAPI</span>
+                                    <span class="badge badge-theme">Java</span>
+                                    <span class="badge badge-theme">Spring</span>
+                                    <span class="badge badge-theme">Node.js</span>
+                                </div>
+                            </div>
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Frontend</h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">JavaScript</span>
+                                    <span class="badge badge-theme">React</span>
+                                    <span class="badge badge-theme">HTML/CSS</span>
+                                    <span class="badge badge-theme">jQuery</span>
+                                </div>
+                            </div>
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Mobile</h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">React Native</span>
+                                    <span class="badge badge-theme">iOS</span>
+                                    <span class="badge badge-theme">Android</span>
+                                    <span class="badge badge-theme">Flutter</span>
+                                </div>
+                            </div>
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Cloud &amp; Infra</h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">AWS</span>
+                                    <span class="badge badge-theme">AWS Lambda</span>
+                                    <span class="badge badge-theme">Docker</span>
+                                    <span class="badge badge-theme">MariaDB</span>
+                                    <span class="badge badge-theme">MySQL</span>
+                                    <span class="badge badge-theme">PostgreSQL</span>
+                                    <span class="badge badge-theme">MongoDB</span>
+                                    <span class="badge badge-theme">Redis</span>
+                                    <span class="badge badge-theme">Qdrant</span>
+                                </div>
+                            </div>
+                            <div class="skill-group">
+                                <h3 class="skill-group-title">Embedded &amp; IoT</h3>
+                                <div class="tags">
+                                    <span class="badge badge-theme">C++</span>
+                                    <span class="badge badge-theme">ESP32 / Arduino</span>
+                                    <span class="badge badge-theme">Raspberry Pi</span>
+                                </div>
+                            </div>
+                            <p><a class="more-link" href="https://github.com/ParkJeongseop" target="_blank"><i class="fas fa-external-link-alt"></i>
+                                <span class="ko">GitHub에서 더보기</span>
+                                <span class="en">More on GitHub</span>
+                            </a></p>
                         </div><!--//content-->
                     </div><!--//section-inner-->
                 </aside><!--//section-->
-                            
+
+                <aside class="github aside section">
+                    <div class="section-inner shadow-sm rounded">
+                        <h2 class="heading">GitHub</h2>
+                        <div class="content">
+                            <a href="https://github.com/ParkJeongseop" target="_blank" rel="noopener">
+                                <img class="github-chart" src="https://ghchart.rshah.org/3aaa64/ParkJeongseop" alt="ParkJeongseop GitHub 기여 그래프" loading="lazy" />
+                            </a>
+                            <p><a class="more-link" href="https://github.com/ParkJeongseop" target="_blank"><i class="fab fa-github"></i>
+                                <span class="ko">GitHub 프로필</span>
+                                <span class="en">GitHub profile</span>
+                            </a></p>
+                        </div><!--//content-->
+                    </div><!--//section-inner-->
+                </aside><!--//section-->
+
                 <aside class="languages aside section">
                     <div class="section-inner shadow-sm rounded">
                         <h2 class="heading">
@@ -1314,7 +1711,47 @@
  
     <!-- Javascript -->
     <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/dark-mode-switch/dark-mode-switch.min.js"></script>         
+    <script type="text/javascript" src="assets/js/theme.js"></script>
+
+    <!-- 최근 블로그 글: /blog/feed.json 에서 자동으로 불러오기 -->
+    <script>
+        (function () {
+            var list = document.getElementById("latest-posts-list");
+            var section = document.getElementById("latest-posts");
+            if (!list || !section) return;
+            fetch("/blog/feed.json")
+                .then(function (r) { return r.ok ? r.json() : []; })
+                .then(function (posts) {
+                    if (!posts || !posts.length) return;
+                    var html = posts.slice(0, 3).map(function (p) {
+                        var d = new Date(p.pubDate).toLocaleDateString("ko-KR", {
+                            year: "numeric", month: "long", day: "numeric"
+                        });
+                        return '<a class="post-link" href="' + p.url + '">' +
+                            '<div class="t">' + p.title + '</div>' +
+                            '<div class="d">' + d + '</div></a>';
+                    }).join("");
+                    list.innerHTML = html;
+                    section.hidden = false;
+                })
+                .catch(function () { /* 피드 없으면 섹션 숨김 유지 */ });
+        })();
+    </script>
+    <script>
+        function toggleMoreProjects(btn) {
+            var box = document.getElementById("more-projects");
+            if (!box) return;
+            var willShow = box.hidden;
+            box.hidden = !willShow;
+            var topWrap = document.getElementById("more-projects-top");
+            if (topWrap) topWrap.hidden = !willShow;
+            var bottomBtn = document.querySelector("#more-projects-wrap .more-projects-btn");
+            if (bottomBtn) bottomBtn.classList.toggle("expanded", willShow);
+            if (!willShow && bottomBtn) {
+                bottomBtn.scrollIntoView({ block: "center" });
+            }
+        }
+    </script>
 </body>
 </html> 
 

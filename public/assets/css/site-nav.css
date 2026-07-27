@@ -1,0 +1,153 @@
+/* 사이트 공통 상단 내비게이션 (이력서 + 블로그 공유) */
+html {
+  scroll-behavior: smooth;
+}
+/* 섹션 앵커 점프 시 sticky 헤더에 가려지지 않도록 여백 확보 */
+section[id] {
+  scroll-margin-top: 72px;
+}
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  background: #fff;
+  border-bottom: 1px solid #e0e6ea;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.site-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.6rem;
+  padding-bottom: 0.6rem;
+}
+
+.site-nav-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  color: #3aaa64;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav-brand:hover {
+  color: #2e8c52;
+}
+
+.site-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+/* 언어/테마 버튼 */
+.nav-utils {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+.nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #434343;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  line-height: 1;
+}
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
+  color: #3aaa64;
+}
+.nav-btn i {
+  font-size: 1rem;
+}
+
+/* 섹션 앵커는 데스크탑에서만 노출 — 별도 페이지인 블로그 링크는 모바일에서도 유지
+   (.site-nav-links의 display:flex보다 특이도를 높여야 적용됨) */
+@media (max-width: 768px) {
+  .site-nav-links.site-nav-sections li {
+    display: none;
+  }
+  .site-nav-links.site-nav-sections li.nav-blog {
+    display: block;
+  }
+}
+
+body[data-theme='dark'] .nav-btn {
+  color: rgba(255, 255, 255, 0.85);
+}
+body[data-theme='dark'] .nav-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #6cd28f;
+}
+
+.site-nav-links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+.site-nav-links a {
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  color: #434343;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 20px;
+  transition: background-color 0.15s, color 0.15s;
+}
+.site-nav-links a:hover {
+  color: #3aaa64;
+}
+.site-nav-links a.active {
+  background: #3aaa64;
+  color: #fff;
+}
+.site-nav-links a.active:hover {
+  color: #fff;
+}
+
+/* nav 안의 다크모드 스위치(블로그) 여백 정리 */
+.site-nav .dark-mode-switch {
+  margin-bottom: 0;
+}
+
+/* ---------- 다크모드 ---------- */
+body[data-theme='dark'] .site-nav {
+  background: #1f2226;
+  border-bottom-color: #2c2f34;
+  box-shadow: none;
+}
+body[data-theme='dark'] .site-nav-links a {
+  color: rgba(255, 255, 255, 0.85);
+}
+body[data-theme='dark'] .site-nav-links a:hover {
+  color: #6cd28f;
+}
+body[data-theme='dark'] .site-nav-links a.active {
+  background: #3aaa64;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .site-nav-brand {
+    font-size: 1rem;
+  }
+  .site-nav-links a {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.9rem;
+  }
+}

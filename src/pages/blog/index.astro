@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const dateFmt = new Intl.DateTimeFormat('ko-KR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title="블로그" description="개발자 박정섭의 글 모음">
+  <section class="section">
+    <div class="section-inner shadow-sm rounded">
+      <h2 class="heading blog-heading">
+        블로그
+        <a class="rss-link" href="/rss.xml" target="_blank" title="RSS 피드" aria-label="RSS 피드">
+          <i class="fas fa-rss"></i>
+        </a>
+      </h2>
+      <div class="content">
+        {
+          posts.length === 0 ? (
+            <p class="text-muted">아직 작성된 글이 없습니다.</p>
+          ) : (
+            <ul class="post-list">
+              {posts.map((post) => (
+                <li class="post-list-item">
+                  <h3 class="post-title">
+                    <a href={`/blog/${post.id}`}>{post.data.title}</a>
+                  </h3>
+                  <div class="post-meta">
+                    <i class="far fa-calendar-alt" /> {dateFmt.format(post.data.pubDate)}
+                  </div>
+                  {post.data.description && (
+                    <p class="post-excerpt">{post.data.description}</p>
+                  )}
+                  {post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.data.tags.map((tag) => (
+                        <span class="badge">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

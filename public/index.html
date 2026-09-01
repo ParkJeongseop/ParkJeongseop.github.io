@@ -137,6 +137,9 @@
             height: 36px;
             border-radius: 50%;
         }
+        /* 스토어 아이콘은 브랜드 컬러로 (테마 초록 대신) */
+        .latest .fa-apple { color: #000; }
+        body[data-theme="dark"] .latest .fa-apple { color: #fff; }
         /* 프로젝트 더보기 토글 */
         .more-projects-btn { transition: none !important; }
         .more-projects-btn .less-label { display: none; }
@@ -521,8 +524,8 @@
                                     </ul>
                                     <p dir="auto">
                                         <a href="https://soundok.music" target="_blank" title="Web" style="margin-right:12px;"><i class="fas fa-globe" style="font-size:26px;vertical-align:middle;"></i></a>
-                                        <a href="https://apps.apple.com/kr/app/%EC%82%AC%EC%9A%B4%EB%8F%85/id6520396047" target="_blank" title="App Store" style="margin-right:12px;"><i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i></a>
-                                        <a href="https://play.google.com/store/apps/details?id=com.koivis.soundok&amp;hl=ko" target="_blank" title="Google Play" style="margin-right:12px;"><i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://apps.apple.com/kr/app/%EC%82%AC%EC%9A%B4%EB%8F%85/id6520396047" target="_blank" title="App Store" style="margin-right:12px;"><i class="fab fa-apple" style="font-size:26px;vertical-align:middle;"></i></a>
+                                        <a href="https://play.google.com/store/apps/details?id=com.koivis.soundok&amp;hl=ko" target="_blank" title="Google Play" style="margin-right:12px;"><img src="assets/images/projects/stores/playstore.png" width="26" height="26" style="max-width:100%;vertical-align:middle;"></a>
                                         <a href="intoss://soundok" title="앱인토스 (토스 앱에서 열기)">
                                             <img src="assets/images/projects/stores/toss.png" width="26" height="26" style="max-width: 100%; vertical-align: middle; border-radius: 6px;">
                                         </a>
@@ -571,11 +574,11 @@
                             </div><!--//item-->
 
                             <div class="item row">
-                                <a class="col-md-4 col-12" href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank">
+                                <a class="col-md-4 col-12" href="https://wipi.seop.kr/" target="_blank">
                                 <img loading="lazy" decoding="async" class="img-fluid project-image rounded shadow-sm" src="assets/images/projects/wipi-emulator.png" alt="WIPI Emulator" />
                                 </a>
                                 <div class="desc col-md-8 col-12">
-                                    <h3 class="title"><a href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank">
+                                    <h3 class="title"><a href="https://wipi.seop.kr/" target="_blank">
                                         <span class=ko>WIPI 에뮬레이터 (WIPI Emulator)</span>
                                         <span class=en>WIPI Emulator</span>
                                     </a></h3>
@@ -599,15 +602,15 @@
                                             <span class=ko>PCM·MIDI 오디오(rodio/cpal, rustysynth), 게임 라이브러리 자동 메타데이터 추출</span>
                                             <span class=en>PCM/MIDI audio (rodio/cpal, rustysynth) and a game library with automatic metadata extraction.</span>
                                         </li>
-                                        <li>
-                                            <span class=ko>Google Play 출시 (iOS App Store 심사 중)</span>
-                                            <span class=en>Available on Google Play (iOS under App Store review).</span>
-                                        </li>
                                     </ul>
                                     <p dir="auto">
                                             <a href="https://github.com/ParkJeongseop/WIPI-Emulator" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://wipi.seop.kr/" target="_blank" rel="noopener" title="Web" style="margin-right:12px;"><i class="fas fa-globe" style="font-size:26px;vertical-align:middle;"></i></a>
+                                            <a href="https://apps.apple.com/kr/app/wipi-emulator/id6793132618" target="_blank" title="App Store" style="margin-right:12px;">
+                                                <i class="fab fa-apple" style="font-size:26px;vertical-align:middle;"></i>
+                                            </a>
                                             <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.wipi" target="_blank" title="Google Play">
-                                                <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                                <img src="assets/images/projects/stores/playstore.png" width="26" height="26" style="max-width:100%;vertical-align:middle;">
                                             </a>
                                         </p>
                                 </div><!--//desc-->
@@ -809,11 +812,11 @@
                                     </ul>
                                     <p dir="auto">
                                             <a href="https://github.com/ParkJeongseop/Tally-Counter" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
-                                            <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.tallycounter" target="_blank" title="Google Play" style="margin-right:12px;">
-                                                <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                            <a href="https://apps.apple.com/kr/app/physical-tally-counter/id6751624376" target="_blank" title="App Store" style="margin-right:12px;">
+                                                <i class="fab fa-apple" style="font-size:26px;vertical-align:middle;"></i>
                                             </a>
-                                            <a href="https://apps.apple.com/kr/app/physical-tally-counter/id6751624376" target="_blank" title="App Store">
-                                                <i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i>
+                                            <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.tallycounter" target="_blank" title="Google Play">
+                                                <img src="assets/images/projects/stores/playstore.png" width="26" height="26" style="max-width:100%;vertical-align:middle;">
                                             </a>
                                         </p>
                                 </div><!--//desc-->
@@ -859,7 +862,7 @@
                                     </p>
                                     <p dir="auto">
                                         <a href="https://apps.apple.com/us/app/tinkly/id6505013704" target="_blank" title="App Store">
-                                            <i class="fab fa-app-store" style="font-size:26px;vertical-align:middle;"></i>
+                                            <i class="fab fa-apple" style="font-size:26px;vertical-align:middle;"></i>
                                         </a>
                                     </p>
                                     <!-- 공식 웹사이트 배포중단 -->
@@ -1222,7 +1225,7 @@
                                     <p dir="auto">
                                             <a href="https://github.com/ParkJeongseop/CheongwonPay" target="_blank" rel="noopener" title="GitHub" style="margin-right:12px;"><i class="fab fa-github" style="font-size:26px;vertical-align:middle;"></i></a>
                                         <a href="https://play.google.com/store/apps/details?id=com.parkjeongseop.cheongwonpay" target="_blank" title="Google Play">
-                                            <i class="fab fa-google-play" style="font-size:26px;vertical-align:middle;"></i>
+                                            <img src="assets/images/projects/stores/playstore.png" width="26" height="26" style="max-width:100%;vertical-align:middle;">
                                         </a>
                                     </p>
                                 </div><!--//desc-->                          
